@@ -1,6 +1,12 @@
 <template>
-  <button class="square" :class="[ { 'winner': winner } ]"
-          :disabled="disabled" @click.stop="click">{{value}}</button>
+  <button
+    class="square"
+    :class="[{ winner: winner }]"
+    :disabled="disabled"
+    @click.stop="click"
+  >
+    {{ value }}
+  </button>
 </template>
 
 
@@ -8,20 +14,19 @@
 export default {
   name: "Square",
   props: {
-      value: String,
-      disabled: Boolean,
-      winner: Boolean
+    value: String,
+    disabled: Boolean,
+    winner: Boolean,
   },
   methods: {
     click() {
-      this.$emit('click')
-    }
-  }
-}
+      this.$emit("click");
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 .square {
   background-blend-mode: exclusion;
   background: #fff9 var(--noise-pattern);
@@ -32,8 +37,9 @@ export default {
   padding: 0;
   text-align: center;
   box-shadow: inset 0 0 0 #0004;
-  text-shadow: -1px -1px 1px #000b, -1px 1px 1px #000b, 1px -1px 1px #000b, 1px 1px 1px #000b;
-  transition: all .25s ease;
+  text-shadow: -1px -1px 1px #000b, -1px 1px 1px #000b, 1px -1px 1px #000b,
+    1px 1px 1px #000b;
+  transition: all 0.25s ease;
   outline: none;
 }
 
@@ -50,5 +56,4 @@ export default {
 .square:not([disabled]):empty:active {
   box-shadow: inset 0 2px 50px #0008;
 }
-
 </style>

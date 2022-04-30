@@ -6,6 +6,11 @@
         <h1>Game Tictactoe!!</h1>
       </div>
 
+      <div class="score-board d-flex justify-content-evenly">
+        <h4>You: {{ yourScore }}</h4>
+        <h4>Opponent: {{ botScore }}</h4>
+      </div>
+
       <board :squares="squares" :winner="winner" @click="click"></board>
 
       <div class="game-info">
@@ -43,6 +48,8 @@ export default {
       stepNumber: 0,
       currentPlayer: "X",
       winner: null,
+      yourScore: 0,
+      botScore: 0,
     };
   },
   methods: {
@@ -90,7 +97,36 @@ export default {
       this.squares[i] = this.currentPlayer;
       if (!this.hasWinner()) {
         this.stepNumber++;
-        this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+        this.currentPlayer = "O";
+        this.botPick();
+        return;
+      }
+      if (this.currentPlayer === "X") {
+        this.yourScore++;
+      } else {
+        this.botScore++;
+      }
+    },
+
+    botPick() {
+      let emptySquare = [];
+      for (let i = 0; i < 9; ++i) {
+        if (this.squares[i] === null) {
+          emptySquare.push(i);
+        }
+      }
+      const randomIndex =
+        emptySquare[Math.floor(Math.random() * emptySquare.length)];
+      this.squares[randomIndex] = "O";
+      if (!this.hasWinner()) {
+        this.stepNumber++;
+        this.currentPlayer = "X";
+        return;
+      }
+      if (this.currentPlayer === "X") {
+        this.yourScore++;
+      } else {
+        this.botScore++;
       }
     },
   },
@@ -98,6 +134,10 @@ export default {
 </script>
 
 <style>
+.score-board {
+  width: 100%;
+}
+
 .game {
   background-image: url("../../public/cosmos.png");
   height: 100vh;

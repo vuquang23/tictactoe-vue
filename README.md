@@ -1,4 +1,4 @@
-# testvue
+# Me Learn Vue
 
 ## Project setup
 ```
